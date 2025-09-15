@@ -19,7 +19,7 @@ public class MenuPrincipal : MonoBehaviour
         if (btnJugar !=null && btnCreditos != null && btnSalir != null)
         {
             //btnJugar.onClick.AddListener(() => SceneManager.LoadScene("Gameplay"));
-            //btnCreditos.onClick.AddListener(() => SceneManager.LoadScene("Gameplay"));
+            btnCreditos.onClick.AddListener(() => SceneManager.LoadScene("Creditos"));
             btnSalir.onClick.AddListener(() => {
                 Application.Quit(); // Funciona en build
                 Debug.Log("Saliendo..."); // Para testear en unity
