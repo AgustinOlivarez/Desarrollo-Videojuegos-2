@@ -1,10 +1,18 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
     public GameObject pauseMenuUI;
     private bool isPaused = false;
+
+    void Start()
+    {
+        pauseMenuUI.SetActive(false);  // oculta el panel
+        Time.timeScale = 1f;       
+        isPaused = false;         
+    }
 
     void Update()
     {
@@ -20,6 +28,7 @@ public class PauseMenu : MonoBehaviour
 
     public void Resume()
     {
+        EventSystem.current.SetSelectedGameObject(null);
         pauseMenuUI.SetActive(false);   // Oculta el menú
         Time.timeScale = 1f;            // Reanuda el tiempo
         isPaused = false;
