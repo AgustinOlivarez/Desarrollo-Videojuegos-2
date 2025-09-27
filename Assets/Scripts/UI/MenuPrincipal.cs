@@ -16,18 +16,15 @@ public class MenuPrincipal : MonoBehaviour
         Cursor.visible = true;
 
         // Si las variables no son null le agrega un listener a cada boton para que ejecute una accion
-        if (btnJugar !=null && btnCreditos != null && btnSalir != null)
-        {
-            btnJugar.onClick.AddListener(() => SceneManager.LoadScene("Gameplay"));
-            btnCreditos.onClick.AddListener(() => SceneManager.LoadScene("Creditos"));
-            btnSalir.onClick.AddListener(() => {
-                Application.Quit(); // Funciona en build
-                Debug.Log("Saliendo..."); // Para testear en unity
-                });
-        }
+        btnJugar?.onClick.AddListener(() => SceneManager.LoadScene("Gameplay"));
+        btnCreditos?.onClick.AddListener(() => SceneManager.LoadScene("Creditos"));
+        btnSalir?.onClick.AddListener(() => {
+            Application.Quit(); // Funciona en build
+            Debug.Log("Saliendo..."); // Para testear en unity
+        });
     }
 
-    
+
     void Update()
     {
         
