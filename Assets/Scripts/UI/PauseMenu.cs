@@ -30,18 +30,23 @@ public class PauseMenu : MonoBehaviour
     public void Resume()
     {
         EventSystem.current.SetSelectedGameObject(null);
-        panelPauseMenu.SetActive(false);   // Oculta el menú
+        panelPauseMenu.SetActive(false);   // Oculta el menï¿½
         if (panelHUD != null)
-            panelHUD.SetActive(true); // Vuelve a mostrar el botón del HUD
+            panelHUD.SetActive(true); // Vuelve a mostrar el botï¿½n del HUD
         Time.timeScale = 1f;            // Reanuda el tiempo
         isPaused = false;
     }
 
     private void Pause()
     {
-        panelPauseMenu.SetActive(true);    // Muestra el menú
+        panelPauseMenu.SetActive(true);    // Muestra el menï¿½
         if (panelHUD != null)
             panelHUD.SetActive(false);
+
+        // Mostrar cursor y desbloquearlo
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
         Time.timeScale = 0f;            // Detiene el tiempo del juego
         isPaused = true;
     }
@@ -49,7 +54,7 @@ public class PauseMenu : MonoBehaviour
     public void LoadMainMenu()
     {
         Time.timeScale = 1f;            // Resetea el tiempo
-        SceneManager.LoadScene("MenuPrincipal"); // Asegurate de tener tu escena de menú en Build Settings
+        SceneManager.LoadScene("MenuPrincipal"); // Asegurate de tener tu escena de menï¿½ en Build Settings
     }
     public void TogglePause()
     {
