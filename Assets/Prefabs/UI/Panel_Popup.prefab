@@ -152,13 +152,13 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 3329633201676889982}
   - {fileID: 3367599816638253028}
+  - {fileID: 3329633201676889982}
   m_Father: {fileID: 2218129219262962796}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 400, y: -360}
+  m_AnchoredPosition: {x: 400, y: -385}
   m_SizeDelta: {x: 450, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &5728680953705901583
@@ -392,7 +392,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 50}
+  m_SizeDelta: {x: 500, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1499325034473096377
 CanvasRenderer:
@@ -581,9 +581,41 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3632374643737763095, guid: 735bda0c7b7999a46a8a6a73dd7f75e3, type: 3}
+      propertyPath: m_text
+      value: Cancelar
+      objectReference: {fileID: 0}
+    - target: {fileID: 3632374643737763095, guid: 735bda0c7b7999a46a8a6a73dd7f75e3, type: 3}
+      propertyPath: m_fontSize
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 3632374643737763095, guid: 735bda0c7b7999a46a8a6a73dd7f75e3, type: 3}
+      propertyPath: m_fontStyle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3632374643737763095, guid: 735bda0c7b7999a46a8a6a73dd7f75e3, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3632374643737763095, guid: 735bda0c7b7999a46a8a6a73dd7f75e3, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3632374643737763095, guid: 735bda0c7b7999a46a8a6a73dd7f75e3, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3632374643737763095, guid: 735bda0c7b7999a46a8a6a73dd7f75e3, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3632374643737763095, guid: 735bda0c7b7999a46a8a6a73dd7f75e3, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4278190080
+      objectReference: {fileID: 0}
     - target: {fileID: 9179883013388527816, guid: 735bda0c7b7999a46a8a6a73dd7f75e3, type: 3}
       propertyPath: m_Name
-      value: Button_Popup (1)
+      value: CancelButton
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -683,9 +715,33 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3632374643737763095, guid: 735bda0c7b7999a46a8a6a73dd7f75e3, type: 3}
+      propertyPath: m_text
+      value: Confirmar
+      objectReference: {fileID: 0}
+    - target: {fileID: 3632374643737763095, guid: 735bda0c7b7999a46a8a6a73dd7f75e3, type: 3}
+      propertyPath: m_fontStyle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3632374643737763095, guid: 735bda0c7b7999a46a8a6a73dd7f75e3, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3632374643737763095, guid: 735bda0c7b7999a46a8a6a73dd7f75e3, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3632374643737763095, guid: 735bda0c7b7999a46a8a6a73dd7f75e3, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3632374643737763095, guid: 735bda0c7b7999a46a8a6a73dd7f75e3, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4278190080
+      objectReference: {fileID: 0}
     - target: {fileID: 9179883013388527816, guid: 735bda0c7b7999a46a8a6a73dd7f75e3, type: 3}
       propertyPath: m_Name
-      value: Button_Popup
+      value: AcceptButton
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
