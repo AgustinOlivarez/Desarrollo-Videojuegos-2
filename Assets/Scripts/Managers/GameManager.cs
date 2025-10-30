@@ -4,6 +4,8 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager Instance { get; private set; }
+
     // Eventos para el patron observer
     public static event Action OnGameStarted;
     public static event Action OnGamePaused;
@@ -18,7 +20,14 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        // Patron Singleton
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
 
+        Instance = this;
     }
 
     private void Start()
