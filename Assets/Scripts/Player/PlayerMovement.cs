@@ -34,10 +34,6 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        //Bloqueo el mouse
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-
         rb.freezeRotation = true; // freeze a las rotaciones del rb 
         GameObject cameraPivot = new GameObject("CameraPivot");
         cameraTarget = cameraPivot.transform;
