@@ -314,18 +314,18 @@ PrefabInstance:
     - target: {fileID: 3353489670835625839, guid: 4bdb08151137ac7499b994ffca7ab099, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1168134865}
+      objectReference: {fileID: 1168134867}
     - target: {fileID: 3353489670835625839, guid: 4bdb08151137ac7499b994ffca7ab099, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3353489670835625839, guid: 4bdb08151137ac7499b994ffca7ab099, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: LoadMainMenu
+      value: QuitToMainMenu
       objectReference: {fileID: 0}
     - target: {fileID: 3353489670835625839, guid: 4bdb08151137ac7499b994ffca7ab099, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: PauseMenu, Assembly-CSharp
+      value: GameManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3353489670835625839, guid: 4bdb08151137ac7499b994ffca7ab099, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -736,6 +736,52 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3bb7a84b0f822e3499e815a4b9eff774, type: 3}
+--- !u!1 &837746201
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 837746202}
+  - component: {fileID: 837746203}
+  m_Layer: 0
+  m_Name: UIManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &837746202
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 837746201}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &837746203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 837746201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f49430ab12cebf1469c07e3c3ece6da4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panelPauseMenu: {fileID: 1586035460}
+  panelHUD: {fileID: 719707308}
 --- !u!1 &1023584803
 GameObject:
   m_ObjectHideFlags: 0
@@ -824,7 +870,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1168134866}
-  - component: {fileID: 1168134865}
+  - component: {fileID: 1168134867}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -832,20 +878,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1168134865
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1168134864}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ddf274741509d67419602d3cc75dfadb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  panelPauseMenu: {fileID: 1586035460}
-  panelHUD: {fileID: 719707308}
 --- !u!4 &1168134866
 Transform:
   m_ObjectHideFlags: 0
@@ -861,6 +893,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1168134867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1168134864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba548a2a80614b443bf3e049a51a4bba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1189074922
 GameObject:
   m_ObjectHideFlags: 0
@@ -1360,18 +1404,18 @@ PrefabInstance:
     - target: {fileID: 3353489670835625839, guid: 4bdb08151137ac7499b994ffca7ab099, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1168134865}
+      objectReference: {fileID: 1168134867}
     - target: {fileID: 3353489670835625839, guid: 4bdb08151137ac7499b994ffca7ab099, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3353489670835625839, guid: 4bdb08151137ac7499b994ffca7ab099, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Resume
+      value: OnResume
       objectReference: {fileID: 0}
     - target: {fileID: 3353489670835625839, guid: 4bdb08151137ac7499b994ffca7ab099, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: PauseMenu, Assembly-CSharp
+      value: GameManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3353489670835625839, guid: 4bdb08151137ac7499b994ffca7ab099, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -1585,3 +1629,4 @@ SceneRoots:
   - {fileID: 2084517192}
   - {fileID: 130364637}
   - {fileID: 817010300}
+  - {fileID: 837746202}
