@@ -181,7 +181,7 @@ GameObject:
   - component: {fileID: 8530403658451449901}
   - component: {fileID: 5279569164740279625}
   - component: {fileID: 3553487637497668026}
-  - component: {fileID: 3677272801975687240}
+  - component: {fileID: 2228126658208376225}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -221,7 +221,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4146491887240624827}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -266,7 +266,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4146491887240624827}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: ec52e2a2a8b209541989a5602878ad9e, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -291,7 +291,7 @@ Rigidbody:
   m_GameObject: {fileID: 4146491887240624827}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 0
+  m_Drag: 0.2
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -306,10 +306,10 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!114 &3677272801975687240
+  m_CollisionDetection: 1
+--- !u!114 &2228126658208376225
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -326,11 +326,15 @@ MonoBehaviour:
   mouseSensitivity: 2
   smoothTime: 0.05
   cameraFollowSpeed: 10
-  playerCamera: {fileID: 5621487754955056799}
+  playerCamera: {fileID: 0}
   rb: {fileID: 3553487637497668026}
-  headPoint: {fileID: 8552423303231838591}
+  headPoint: {fileID: 0}
   crouchHeight: 1
   standingHeight: 2
   crouchHeadLocalPosition: {x: 0, y: 0.25, z: 0}
   standingHeadLocalPosition: {x: 0, y: 0.52, z: 0}
   crouchSpeed: 1.5
+  groundCheckDistance: 0.2
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 8
