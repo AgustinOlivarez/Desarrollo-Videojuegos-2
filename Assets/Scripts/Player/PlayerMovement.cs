@@ -4,7 +4,7 @@ public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement Settings")]
     public float walkSpeed = 3f;
-    public float jumpForce = 3f;
+    public float jumpForce = 5f;
     public float mouseSensitivity = 2f;
     public float smoothTime = 0.05f;
     public float cameraFollowSpeed = 10f;
@@ -25,54 +25,89 @@ public class PlayerMovement : MonoBehaviour
     [Header("Crouch Settings")]
     public float crouchHeight = 1f;
     public float standingHeight = 2f;
-    public Vector3 crouchHeadLocalPosition = new Vector3(0, 0.25f, 0); // aprox la mitad de la altura original
+    public Vector3 crouchHeadLocalPosition = new Vector3(0, 0.25f, 0);
     public Vector3 standingHeadLocalPosition = new Vector3(0, 0.52f, 0);
     public float crouchSpeed = 1.5f;
 
     private bool isCrouching = false;
     private CapsuleCollider capsule;
+    private float lastJumpTime; 
+
+    [Header("Ground Check")]
+    public float groundCheckDistance = 0.2f;
+    public LayerMask groundMask;
+
+    private const float JUMP_COOLDOWN = 0.2f;
 
     void Start()
     {
-        rb.freezeRotation = true; // freeze a las rotaciones del rb 
+        rb.freezeRotation = true;
         GameObject cameraPivot = new GameObject("CameraPivot");
         cameraTarget = cameraPivot.transform;
         cameraTarget.position = transform.position;
         capsule = GetComponent<CapsuleCollider>();
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        lastJumpTime = Time.time - JUMP_COOLDOWN; 
     }
 
     void Update()
     {
-        if (Time.timeScale == 0f) return; //Pausar totalmente el juego
+        if (Time.timeScale == 0f) return;
+
+        CheckGround();
         HandleCrouch();
-        HandleMovement();
         HandleMouseLook();
         SmoothCameraFollow();
+
+        if (isGrounded && Input.GetButtonDown("Jump") && Time.time > lastJumpTime + JUMP_COOLDOWN)
+        {
+            Jump();
+            lastJumpTime = Time.time;
+        }
+    }
+
+    void FixedUpdate()
+    {
+        HandleMovement();
+    }
+
+    private void CheckGround()
+    {
+        Vector3 sphereOrigin = transform.position + capsule.center;
+
+        sphereOrigin.y -= capsule.height / 2f - capsule.radius / 2f;
+
+        float radius = capsule.radius * 0.9f;
+
+        isGrounded = Physics.CheckSphere(sphereOrigin, radius, groundMask, QueryTriggerInteraction.Ignore);
     }
 
     void HandleMovement()
     {
-        float speed = isCrouching ? walkSpeed * 0.5f : walkSpeed; // velocidad definida con la velocidad de caminar si esta agachado o no
+        float currentSpeed = isCrouching ? crouchSpeed : walkSpeed;
         float moveX = Input.GetAxis("Horizontal");
         float moveZ = Input.GetAxis("Vertical");
 
-        // Calcula el movimiento en el plano XZ
-        Vector3 move = transform.right * moveX + transform.forward * moveZ;
-        move *= speed;
+        Vector3 targetVelocity = transform.right * moveX + transform.forward * moveZ;
+        targetVelocity *= currentSpeed;
 
-        // Mantiene la velocidad vertical del Rigidbody (sin sobrescribirla)
-        Vector3 currentVelocity = rb.linearVelocity;
-        rb.linearVelocity = new Vector3(move.x, currentVelocity.y, move.z);
+        Vector3 velocity = rb.linearVelocity;
+        velocity.x = targetVelocity.x;
+        velocity.z = targetVelocity.z;
 
-        isMoving = isGrounded && (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D));
+        rb.linearVelocity = velocity;
 
-        // Salto
-        if (isGrounded && Input.GetKeyDown(KeyCode.Space))
-        {
-            Vector3 jumpVelocity = rb.linearVelocity;
-            jumpVelocity.y = jumpForce;
-            rb.linearVelocity = jumpVelocity;
-        }
+        isMoving = (moveX != 0f || moveZ != 0f) && isGrounded;
+    }
+
+    void Jump()
+    {
+        isGrounded = false;
+
+        Vector3 jumpVelocity = rb.linearVelocity;
+        jumpVelocity.y = jumpForce;
+        rb.linearVelocity = jumpVelocity;
     }
 
     void HandleMouseLook()
@@ -92,11 +127,11 @@ public class PlayerMovement : MonoBehaviour
 
     void HandleCrouch()
     {
-        if (Input.GetKeyDown(KeyCode.LeftControl)) // Si tiene apretado el ctrl izquierdo se agacha
+        if (Input.GetKeyDown(KeyCode.LeftControl))
         {
             Crouch();
         }
-        else if (Input.GetKeyUp(KeyCode.LeftControl))// Cuando suelta se levanta
+        else if (Input.GetKeyUp(KeyCode.LeftControl))
         {
             StandUp();
         }
@@ -116,37 +151,57 @@ public class PlayerMovement : MonoBehaviour
         playerCamera.position = cameraTarget.position;
     }
 
-    //Funcion para agacharse
     void Crouch()
     {
+        if (isCrouching) return;
         isCrouching = true;
         capsule.height = crouchHeight;
+        capsule.center = new Vector3(capsule.center.x, crouchHeight / 2f, capsule.center.z);
         headPoint.localPosition = crouchHeadLocalPosition;
     }
 
-    //Funcion para levantarse
     void StandUp()
     {
+        if (!isCrouching) return;
+
         isCrouching = false;
         capsule.height = standingHeight;
+        capsule.center = new Vector3(capsule.center.x, standingHeight / 2f, capsule.center.z);
         headPoint.localPosition = standingHeadLocalPosition;
     }
 
-    // Si toca el piso o sale del piso interactua con estos triggers
-    private void OnTriggerStay(Collider other)
+    // Gizmos
+    void OnDrawGizmos()
     {
-        if (other.CompareTag("Floor"))
+        if (capsule == null)
         {
-            isGrounded = true;
+            capsule = GetComponent<CapsuleCollider>();
+            
+        }
+
+        Debug.Assert(capsule != null, "PlayerMovement requiere un componente CapsuleCollider en este GameObject.");
+        if (capsule == null) return;
+
+        Vector3 sphereOrigin = transform.position + capsule.center;
+        sphereOrigin.y -= capsule.height / 2f - capsule.radius / 2f;
+
+        float radius = capsule.radius * 0.9f;
+
+        if (Application.isPlaying)
+        {
+            Gizmos.color = isGrounded ? Color.green : Color.red;
+        }
+        else
+        {
+            Gizmos.color = Color.white;
+        }
+
+        Gizmos.DrawWireSphere(sphereOrigin, radius);
+
+        if (headPoint != null && playerCamera != null)
+        {
+            Gizmos.color = Color.blue;
+            Gizmos.DrawLine(headPoint.position, playerCamera.position);
         }
     }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Floor"))
-        {
-            isGrounded = false;
-        }
-    }
-
 }
