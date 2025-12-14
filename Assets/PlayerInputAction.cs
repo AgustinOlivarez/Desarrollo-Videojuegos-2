@@ -145,6 +145,15 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ColectKey"",
+                    ""type"": ""Button"",
+                    ""id"": ""bf6a0abf-d455-4684-a738-3cc28a3980aa"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -257,6 +266,17 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""action"": ""InteractObject"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""dbc42a88-6470-4ccb-9259-b277178f3579"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ColectKey"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -271,6 +291,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         m_Player_Crouch = m_Player.FindAction("Crouch", throwIfNotFound: true);
         m_Player_Flashlight = m_Player.FindAction("Flashlight", throwIfNotFound: true);
         m_Player_InteractObject = m_Player.FindAction("InteractObject", throwIfNotFound: true);
+        m_Player_ColectKey = m_Player.FindAction("ColectKey", throwIfNotFound: true);
     }
 
     ~@PlayerInputAction()
@@ -357,6 +378,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Crouch;
     private readonly InputAction m_Player_Flashlight;
     private readonly InputAction m_Player_InteractObject;
+    private readonly InputAction m_Player_ColectKey;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -392,6 +414,10 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/InteractObject".
         /// </summary>
         public InputAction @InteractObject => m_Wrapper.m_Player_InteractObject;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/ColectKey".
+        /// </summary>
+        public InputAction @ColectKey => m_Wrapper.m_Player_ColectKey;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -436,6 +462,9 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
             @InteractObject.started += instance.OnInteractObject;
             @InteractObject.performed += instance.OnInteractObject;
             @InteractObject.canceled += instance.OnInteractObject;
+            @ColectKey.started += instance.OnColectKey;
+            @ColectKey.performed += instance.OnColectKey;
+            @ColectKey.canceled += instance.OnColectKey;
         }
 
         /// <summary>
@@ -465,6 +494,9 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
             @InteractObject.started -= instance.OnInteractObject;
             @InteractObject.performed -= instance.OnInteractObject;
             @InteractObject.canceled -= instance.OnInteractObject;
+            @ColectKey.started -= instance.OnColectKey;
+            @ColectKey.performed -= instance.OnColectKey;
+            @ColectKey.canceled -= instance.OnColectKey;
         }
 
         /// <summary>
@@ -547,5 +579,12 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnInteractObject(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "ColectKey" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnColectKey(InputAction.CallbackContext context);
     }
 }
