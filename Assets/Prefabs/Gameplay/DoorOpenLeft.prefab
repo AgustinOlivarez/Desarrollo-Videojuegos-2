@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4945517736483791147}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.004999999, y: 0, z: -1.65}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -100,6 +100,7 @@ GameObject:
   - component: {fileID: 8076340593070654577}
   - component: {fileID: 2283110123575939235}
   - component: {fileID: 5581028937160859948}
+  - component: {fileID: 623733782454979750}
   m_Layer: 6
   m_Name: Door
   m_TagString: Untagged
@@ -439,6 +440,22 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!208 &623733782454979750
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5787876627952089147}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.05, y: 1.5, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 0
+  m_Center: {x: 0, y: 0, z: -0.9}
+  m_TimeToStationary: 0.5
 --- !u!1 &6236140729396099081
 GameObject:
   m_ObjectHideFlags: 0
@@ -1002,8 +1019,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2855384303894549989}
-  - component: {fileID: 348464894062085381}
   - component: {fileID: 8910629347084206877}
+  - component: {fileID: 348464894062085381}
+  - component: {fileID: 5649932996888084274}
   m_Layer: 0
   m_Name: DoorOpenLeft
   m_TagString: Untagged
@@ -1028,6 +1046,21 @@ Transform:
   - {fileID: 2539678473389091351}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8910629347084206877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8525183731638450664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2eddd7e030f22b042ba9310f53bc77a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doorObject: {fileID: 8525183731638450664}
+  isBlocked: 0
+  doorObstacle: {fileID: 623733782454979750}
 --- !u!95 &348464894062085381
 Animator:
   serializedVersion: 7
@@ -1050,16 +1083,24 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &8910629347084206877
-MonoBehaviour:
+--- !u!65 &5649932996888084274
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8525183731638450664}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2eddd7e030f22b042ba9310f53bc77a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  doorObject: {fileID: 8525183731638450664}
+  serializedVersion: 3
+  m_Size: {x: 0.5, y: 3, z: 2}
+  m_Center: {x: 0, y: 0, z: 0}
