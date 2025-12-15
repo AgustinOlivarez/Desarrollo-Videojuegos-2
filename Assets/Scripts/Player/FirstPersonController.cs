@@ -37,6 +37,7 @@ public class FirstPersonController : MonoBehaviour
     private CharacterController _characterController;
 
     private float _currentRotationY;
+    private bool controlsEnabled = true;
 
     void Awake()
     {
@@ -51,11 +52,14 @@ public class FirstPersonController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         // Inicializo valores de crouch
         targetHeight = standHeight;
-        targetCenter = new Vector3(0, standHeight / 2f, 0); 
+        targetCenter = new Vector3(0, standHeight / 2f, 0);
         targetVisualPos = new Vector3(0, standHeight / 2f, 0);
     }
+
     private void Update()
     {
+        if (!controlsEnabled) return;
+
         Movement();
         Look();
         CrouchLerp();
@@ -78,6 +82,10 @@ public class FirstPersonController : MonoBehaviour
         _inputAction.Player.Flashlight.performed += SetFlashlight;
 
         GameManager.OnGamePaused += DisableControls;
+        GameManager.OnGameStarted += EnableControls;
+        GameManager.OnGameWin += DisableControls;
+        GameManager.OnGameLose += DisableControls;
+        GameManager.OnInfoControls += DisableControls;
         GameManager.OnGameResumed += EnableControls;
 
         EnableControls();
@@ -85,6 +93,8 @@ public class FirstPersonController : MonoBehaviour
 
     private void OnDisable()
     {
+        _inputAction.Player.Disable();
+
         _inputAction.Player.Move.performed -= SetMovement;
         _inputAction.Player.Move.canceled -= ResetMovement;
 
@@ -99,18 +109,27 @@ public class FirstPersonController : MonoBehaviour
         _inputAction.Player.Flashlight.performed -= SetFlashlight;
 
         GameManager.OnGamePaused -= DisableControls;
+        GameManager.OnGameStarted -= EnableControls;
+        GameManager.OnGameWin -= DisableControls;
+        GameManager.OnGameLose -= DisableControls;
+        GameManager.OnInfoControls -= DisableControls;
         GameManager.OnGameResumed -= EnableControls;
     }
 
     private void DisableControls()
     {
-        _inputAction.Player.Disable(); // desactiva TODO el input
+        controlsEnabled = false;
+        _inputAction.Player.Disable();
+        _movement = Vector2.zero;
+        _look = Vector2.zero;
     }
 
     private void EnableControls()
     {
+        controlsEnabled = true;
         _inputAction.Player.Enable();
     }
+
 
     private void SetMovement(InputAction.CallbackContext ctx)
     {
@@ -216,7 +235,6 @@ public class FirstPersonController : MonoBehaviour
         camPos.y = Mathf.MoveTowards(camPos.y, targetCamY, crouchLerpSpeed * Time.deltaTime);
         cameraTransform.localPosition = camPos;
 
-        // Evita la flotación
         if (_characterController.isGrounded && _velocity.y > -2f)
         {
             _velocity.y = -2f;
