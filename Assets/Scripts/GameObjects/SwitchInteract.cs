@@ -1,11 +1,16 @@
 using UnityEngine;
 
-public class SwitchInteract : MonoBehaviour
+public class SwitchInteract : MonoBehaviour, IInteractable
 {
     //
     [Header("Lamp Settings")]
     [SerializeField] private GameObject[] lamps;
     private bool isOn = false;
+
+    public void Interact()
+    {
+        ToggleLamp();
+    }
 
     //
     public void ToggleLamp()
