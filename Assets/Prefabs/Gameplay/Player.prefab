@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 6398788446510994574}
   - component: {fileID: 825733538312579504}
   - component: {fileID: 451402127275662005}
+  - component: {fileID: 317029258323777250}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -73,7 +74,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visual: {fileID: 7171785665578032674}
-  movementSpeed: 5
+  movementSpeed: 15
   gravity: -9.8
   jumpForce: 3
   cameraTransform: {fileID: 2771476852921020234}
@@ -85,6 +86,18 @@ MonoBehaviour:
   crouchSpeed: 1.2
   crouchLerpSpeed: 5
   flashlight: {fileID: 1232593591452962143}
+--- !u!114 &317029258323777250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2274858493558093598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5186579903c0d04c8af27d5b44e3f62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5343331070927481399
 GameObject:
   m_ObjectHideFlags: 0
