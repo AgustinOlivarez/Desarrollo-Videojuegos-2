@@ -66,12 +66,23 @@ public class CameraRaycaster : MonoBehaviour
     {
         Ray ray = new Ray(transform.position, transform.forward);
 
-        if (Physics.Raycast(ray, out RaycastHit hit, distance, interactableMask))
+        if (Physics.Raycast(ray, out RaycastHit hit, distance, interactableMask, QueryTriggerInteraction.Ignore))
         {
-            if (!lookingAtInteractable)
+            if (hit.collider.GetComponentInParent<IInteractable>() is IInteractable interactable)
             {
-                lookingAtInteractable = true;
-                OnShowInteractPanel?.Invoke();
+                if (!lookingAtInteractable)
+                {
+                    lookingAtInteractable = true;
+                    OnShowInteractPanel?.Invoke();
+                }
+            }
+            else
+            {
+                if (lookingAtInteractable)
+                {
+                    lookingAtInteractable = false;
+                    OnHideInteractPanel?.Invoke();
+                }
             }
         }
         else
@@ -82,6 +93,7 @@ public class CameraRaycaster : MonoBehaviour
                 OnHideInteractPanel?.Invoke();
             }
         }
+
     }
 
     private void ForceCheckInteractPanel()
@@ -95,16 +107,11 @@ public class CameraRaycaster : MonoBehaviour
     {
         Ray ray = new Ray(transform.position, transform.forward);
 
-        if (Physics.Raycast(ray, out RaycastHit hit, distance, interactableMask))
+        if (Physics.Raycast(ray, out RaycastHit hit, distance, interactableMask, QueryTriggerInteraction.Ignore))
         {
-            // Busco si el objeto tiene un SwitchInteract
-            if (hit.collider.TryGetComponent(out SwitchInteract sw))
+            if (hit.collider.GetComponentInParent<IInteractable>() is IInteractable interactable)
             {
-                sw.ToggleLamp();
-            }
-            else if(hit.collider.GetComponentInParent<DoorInteract>() is DoorInteract d)
-            {
-                d.ToogleDoor();
+                interactable.Interact();
             }
         }
     }
