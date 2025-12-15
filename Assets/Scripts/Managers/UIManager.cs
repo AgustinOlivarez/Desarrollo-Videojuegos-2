@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
@@ -6,9 +7,14 @@ public class UIManager : MonoBehaviour
 
     // Variables de los paneles serializados para asignarlos desde el inspector y mantener encapsulacion
     [SerializeField] private GameObject panelPauseMenu;
+    [SerializeField] private GameObject panelInfoControls;
     [SerializeField] private GameObject panelHUD;
     [SerializeField] private GameObject panelInteractGameObject;
-    /*[SerializeField] private GameObject panelGameOver;*/ // Todavia no implementado
+    [SerializeField] private GameObject panelWin;
+    [SerializeField] private GameObject panelLose;
+
+    // Variable para los steps a realizar en el juego
+    [SerializeField] private TextMeshProUGUI stepText;
 
     private void Awake()
     {
@@ -27,9 +33,12 @@ public class UIManager : MonoBehaviour
         GameManager.OnGameStarted += ShowHUD;
         GameManager.OnGamePaused += ShowPauseMenu;
         GameManager.OnGameResumed += ShowHUD;
+        GameManager.OnGameWin += ShowWin;
+        GameManager.OnGameLose += ShowLose;
+        GameManager.OnInfoControls += ShowInfoControls;
         CameraRaycaster.OnShowInteractPanel += ShowInteract;
         CameraRaycaster.OnHideInteractPanel += HideInteract;
-        /* GameManager.OnGameOver += ShowGameOver;*/ // Todavia no implementado
+        //KeyProgressManager.OnMessageUpdate += UpdateMessage;
     }
 
     private void OnDisable()
@@ -37,17 +46,32 @@ public class UIManager : MonoBehaviour
         GameManager.OnGameStarted -= ShowHUD;
         GameManager.OnGamePaused -= ShowPauseMenu;
         GameManager.OnGameResumed -= ShowHUD;
+        GameManager.OnGameWin -= ShowWin;
+        GameManager.OnGameLose -= ShowLose;
+        GameManager.OnInfoControls -= ShowInfoControls;
         CameraRaycaster.OnShowInteractPanel -= ShowInteract;
         CameraRaycaster.OnHideInteractPanel -= HideInteract;
-        /* GameManager.OnGameOver -= ShowGameOver;*/ // Todavia no implementado
+        //KeyProgressManager.OnMessageUpdate -= UpdateMessage;
+    }
+
+    private void ShowInfoControls()
+    {
+        panelInfoControls.SetActive(true);
+        panelHUD.SetActive(false);
+        panelPauseMenu.SetActive(false);
+        panelInteractGameObject.SetActive(false);
+        panelLose.SetActive(false);
+        panelWin.SetActive(false);
     }
 
     private void ShowHUD()
     {
         panelHUD.SetActive(true);
+        panelInfoControls.SetActive(false);
         panelPauseMenu.SetActive(false);
         panelInteractGameObject.SetActive(false);
-        /*panelGameOver.SetActive(false);*/ // Todavia no implementado
+        panelLose.SetActive(false);
+        panelWin.SetActive(false);
     }
 
     private void ShowPauseMenu()
@@ -55,18 +79,28 @@ public class UIManager : MonoBehaviour
         panelPauseMenu.SetActive(true);
         panelHUD.SetActive(false);
         panelInteractGameObject.SetActive(false);
-        /*panelGameOver.SetActive(false);*/ // Todavia no implementado
+        panelLose.SetActive(false);
+        panelWin.SetActive(false);
     }
 
-    private void ShowGameOver()
+    private void ShowLose()
     {
-        /*panelGameOver.SetActive(true);*/ // Todavia no implementado
+        panelLose.SetActive(true);
         panelHUD.SetActive(false);
         panelPauseMenu.SetActive(false);
         panelInteractGameObject.SetActive(false);
+        panelWin.SetActive(false);
     }
 
-    
+    private void ShowWin()
+    {
+        panelWin.SetActive(true);
+        panelHUD.SetActive(false);
+        panelPauseMenu.SetActive(false);
+        panelInteractGameObject.SetActive(false);
+        panelLose.SetActive(false);
+    }
+
     public void ShowInteract()
     {
         panelInteractGameObject.SetActive(true);
@@ -75,6 +109,11 @@ public class UIManager : MonoBehaviour
     public void HideInteract()
     {
         panelInteractGameObject.SetActive(false);
+    }
+
+    private void UpdateMessage(string message)
+    {
+        stepText.text = message;
     }
 
 }
