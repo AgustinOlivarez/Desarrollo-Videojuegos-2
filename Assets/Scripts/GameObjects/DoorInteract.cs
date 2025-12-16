@@ -26,17 +26,8 @@ public class DoorInteract : MonoBehaviour, IInteractable
 
     public void ToogleDoor()
     {
-        isOpen = !isOpen;
-        if (isOpen)
-        {
-            doorAnimator.SetTrigger("Open");
-            doorObstacle.carving = false;
-        }
-        else
-        {
-            doorAnimator.SetTrigger("Close");
-            doorObstacle.carving = true;
-        }
+        isOpen = !isOpen;  // Cambia el estado de la puerta
+        doorAnimator.SetBool("isOpen", isOpen);  // Actualiza el parámetro en el Animator
     }
 
     public void Unlock()
