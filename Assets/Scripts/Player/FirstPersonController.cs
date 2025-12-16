@@ -6,7 +6,7 @@ public class FirstPersonController : MonoBehaviour
     [SerializeField] Transform visual;
 
     [Header("Movement")]
-    [SerializeField] float movementSpeed = 5f;
+    [SerializeField] float movementSpeed = 6f;
     [SerializeField] float gravity = -9.8f;
     [SerializeField] float jumpForce = 3f;
     private Vector2 _movement;
