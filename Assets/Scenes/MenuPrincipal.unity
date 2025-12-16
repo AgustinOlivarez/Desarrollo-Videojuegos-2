@@ -645,7 +645,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: NOMBRE DEL JUEGO
+  m_text: FUGA INFECTADA
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e825714ab2d10294981e87dcfb2b7446, type: 2}
   m_sharedMaterial: {fileID: -6422991231634913589, guid: e825714ab2d10294981e87dcfb2b7446, type: 2}
