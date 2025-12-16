@@ -38,7 +38,7 @@ public class UIManager : MonoBehaviour
         GameManager.OnInfoControls += ShowInfoControls;
         CameraRaycaster.OnShowInteractPanel += ShowInteract;
         CameraRaycaster.OnHideInteractPanel += HideInteract;
-        //KeyProgressManager.OnMessageUpdate += UpdateMessage;
+        KeyProgressManager.OnMessageUpdate += UpdateMessage;
     }
 
     private void OnDisable()
@@ -51,7 +51,7 @@ public class UIManager : MonoBehaviour
         GameManager.OnInfoControls -= ShowInfoControls;
         CameraRaycaster.OnShowInteractPanel -= ShowInteract;
         CameraRaycaster.OnHideInteractPanel -= HideInteract;
-        //KeyProgressManager.OnMessageUpdate -= UpdateMessage;
+        KeyProgressManager.OnMessageUpdate -= UpdateMessage;
     }
 
     private void ShowInfoControls()
