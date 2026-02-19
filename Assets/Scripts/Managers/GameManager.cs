@@ -10,13 +10,16 @@ public class GameManager : MonoBehaviour
     public static event Action OnGameStarted;
     public static event Action OnGamePaused;
     public static event Action OnGameResumed;
-    public static event Action OnGameOver;
-    public static event Action OnGameRestarted;
+    public static event Action OnGameLose;
+    public static event Action OnGameWin;
     public static event Action OnReturnToMenu;
+    public static event Action OnInfoControls;
 
     // Inicializo variables para controlar el estado del juego
+    private bool isInfoControls = true;
     private bool isPaused = false;
-    private bool isGameOver = false;
+    private bool isLose = false;
+    private bool isWin = false;
 
     private void Awake()
     {
@@ -32,11 +35,21 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        Play();
+        PlayInfoControls();
     }
 
     private void Update()
     {
+        if (isInfoControls)
+        {
+            // Detectar la tecla Escape para pausar o reanudar el juego
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                StartGame();
+            }
+            return;
+        }
+
         // Detectar la tecla Escape para pausar o reanudar el juego
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -47,7 +60,7 @@ public class GameManager : MonoBehaviour
         }
 
         // Forzar el cursor segun el estado actual
-        if (isPaused)
+        if (isPaused || isWin || isLose)
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
@@ -59,12 +72,21 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    //Metodo para iniciar el (tutorial de controles)
+    public void PlayInfoControls()
+    {
+        Time.timeScale = 0;
+        OnInfoControls?.Invoke();
+    }
+
     // Metodo para iniciar el juego
-    public void Play()
+    public void StartGame()
     {
         // establezco las variables de estado del juego en false
-        isGameOver = false;
+        isLose = false;
+        isWin = false;
         isPaused = false;
+        isInfoControls = false;
         Time.timeScale = 1; // reanudo el tiempo del juego
 
         // Disparo el delegate OnGameStarted para notificar a los subscriptores
@@ -74,7 +96,7 @@ public class GameManager : MonoBehaviour
     // Metodo para pausar el juego
     public void OnPause()
     {
-        if (isGameOver) return; // si el juego ya termino no hago nada
+        if (isLose) return; // si el juego ya termino no hago nada
         isPaused = true;
         Time.timeScale = 0; // detengo el tiempo del juego
 
@@ -84,7 +106,7 @@ public class GameManager : MonoBehaviour
 
     public void OnResume()
     {
-        if (isGameOver) return;
+        if (isLose) return;
         isPaused = false;
         Time.timeScale = 1; // reanudo el tiempo del juego
 
@@ -92,25 +114,31 @@ public class GameManager : MonoBehaviour
         OnGameResumed?.Invoke();
     }
 
-    public void GameOver()
+    public void LoseGame()
     {
-        isGameOver = true;
+        isLose = true;
         Time.timeScale = 0; // detengo el tiempo del juego
-        // Disparo el delegate OnGameOver para notificar a los subscriptores
-        OnGameOver?.Invoke();
+        // Disparo el delegate OnLose para notificar a los subscriptores
+        OnGameLose?.Invoke();
+    }
+
+    public void WinGame()
+    {
+        isWin = true;
+        Time.timeScale = 0; // detengo el tiempo del juego
+        // Disparo el delegate OnWin para notificar a los subscriptores
+        OnGameWin?.Invoke();
     }
 
     public void Restart()
     {
         // Reincio las variables de estado del juego
         isPaused = false;
-        isGameOver = false;
-        // Reinicio la escena actual
+        isLose = false;
+        isWin = false;
         Time.timeScale = 1; // reanudo el tiempo del juego
         // Cargar la escena actual
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        // Disparo el delegate OnGameRestarted para notificar a los subscriptores
-        OnGameRestarted?.Invoke();
     }
 
     public void QuitToMainMenu()
@@ -120,6 +148,12 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("MenuPrincipal");
         // Disparo el delegate OnReturnToMenu para notificar a los subscriptores   
         OnReturnToMenu?.Invoke();
+    }
+
+    public void ContinueWin()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene("Creditos");
     }
 
 }
